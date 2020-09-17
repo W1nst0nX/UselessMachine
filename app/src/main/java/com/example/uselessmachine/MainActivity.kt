@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.Switch
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +26,18 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
         }
 
-        // to listen to a switch, you can use the OnCheckChangedListener
+        // to listen to a switch, you can use the OnCheckChangeListener
         switch_main_useless.setOnCheckedChangeListener { compoundButton, isCheck ->
             // 1. toast the status of the button (checked, or not checked)
             if(isCheck) {
                 Toast.makeText(this, "The switch is on", Toast.LENGTH_SHORT).show()
 
-                var randomTimeSwitch = (6000..12000).random().toInt().toLong()
+                val randomTimeSwitch = (6000..12000).random().toLong()
                 //Making an anonymous inner class saying this object extends CountDownTimer
                 val uncheckTimer = object : CountDownTimer(randomTimeSwitch, 1000) {
 
                     override fun onTick(p0: Long) {
-                        if(!isCheck) {
+                        if(!switch_main_useless.isChecked) {
                             cancel()
                         }
                     }
@@ -104,11 +103,11 @@ class MainActivity : AppCompatActivity() {
             progressBar_main_progress.visibility = VISIBLE
             text_main_progress.visibility = VISIBLE
 
-            val progressTimer = object : CountDownTimer(10000, 1000) {
+            val progressTimer = object : CountDownTimer(10000, 100) {
 
                 override fun onTick(p0: Long) {
-                    progressBar_main_progress.progress = ((10 - p0/1000)*10).toInt()
-                    text_main_progress.text = "Loading document " + ((10 - p0/1000)*10).toInt().toString() + "% complete"
+                    progressBar_main_progress.progress = ((10 - p0/1000.0)*10).toInt()
+                    text_main_progress.text = "Loading document " + ((10 - p0/1000.0)*10).toInt().toString() + "% complete"
                 }
 
                 override fun onFinish() {
@@ -118,7 +117,6 @@ class MainActivity : AppCompatActivity() {
                     progressBar_main_progress.visibility = GONE
                     text_main_progress.visibility = GONE
                 }
-
             }
             progressTimer.start()
         }
