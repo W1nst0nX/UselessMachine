@@ -63,16 +63,16 @@ class MainActivity : AppCompatActivity() {
                     layout_main.setBackgroundColor(Color.rgb((0..255).random(), (0..255).random(), (0..255).random()))
                 }
                 override fun onTick(p0: Long) {
-                    button_main_selfDestruct.text = (p0/1000).toInt().toString()
+                    button_main_selfDestruct.text = (p0 / 1000).toInt().toString()
                     changeColor()
                     ticFlash++
                     when (ticFlash) {
                         in 2..4 -> {
-                            Handler().postDelayed({changeColor()}, 500)
+                            Handler().postDelayed({ changeColor() }, 500)
                         }
                         in 5..6 -> {
-                            Handler().postDelayed({changeColor()}, 333)
-                            Handler().postDelayed({changeColor()}, 666)
+                            Handler().postDelayed({ changeColor() }, 333)
+                            Handler().postDelayed({ changeColor() }, 666)
                         }
                         in 7..8 -> {
                             Handler().postDelayed({ changeColor() }, 250)
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onTick(p0: Long) {
                     progressBar_main_progress.progress = ((10 - p0/1000.0)*10).toInt()
-                    text_main_progress.text = "Loading document " + ((10 - p0/1000.0)*10).toInt().toString() + "% complete"
+                    text_main_progress.text = "Loading document " + ((100 - p0/100.0)).toInt().toString() + "% complete"
                 }
 
                 override fun onFinish() {
